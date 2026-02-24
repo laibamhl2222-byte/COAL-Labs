@@ -1,0 +1,24 @@
+; Program: Print name and SAP ID
+; Emulator: 8086 (MASM/TASM)
+
+.model small
+.stack 100h
+.data
+msg db 'Name: Laiba, SAP ID: 70077$'
+
+.code
+main proc
+mov ax, @data     ; initialize data segment
+mov ds, ax
+
+; Print string
+mov dx, offset msg
+mov ah, 9
+int 21h
+
+; Exit program
+mov ah, 4ch
+int 21h
+main endp
+end main
+
