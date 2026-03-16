@@ -1,0 +1,68 @@
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+
+nameMsg  DB 'Full Name: Laiba Mughal$'
+sapMsg   DB 'SAP Id: 70077$'
+batchMsg DB 'Batch: 2025-2028$'
+progMsg  DB 'Program + Semester: Bs-SE 3rd Semester$'
+
+.CODE
+MAIN PROC
+
+MOV AX, @DATA
+MOV DS, AX
+
+LEA DX, nameMsg
+MOV AH, 9
+INT 21H
+
+MOV DL, 0DH
+MOV AH, 2
+INT 21H
+MOV DL, 0AH
+INT 21H
+
+
+LEA DX, sapMsg
+MOV AH, 9
+INT 21H
+
+
+MOV DL, 0DH
+MOV AH, 2
+INT 21H
+MOV DL, 0AH
+INT 21H
+
+
+LEA DX, batchMsg
+MOV AH, 9
+INT 21H
+
+
+MOV DL, 0DH
+MOV AH, 2
+INT 21H
+MOV DL, 0AH
+INT 21H
+
+
+LEA DX, progMsg
+MOV AH, 9
+INT 21H
+
+
+MOV DL, 0DH
+MOV AH, 2
+INT 21H
+MOV DL, 0AH
+INT 21H
+
+
+MOV AH, 4CH
+INT 21H
+MAIN ENDP
+END MAIN
+
