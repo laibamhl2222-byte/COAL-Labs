@@ -1,0 +1,29 @@
+.model small
+.stack 100h
+.data
+msgPos db 'Positive$'
+msgNeg db 'Negative$'
+.code
+main proc
+mov ah, 1
+int 21h           ; input number
+sub al, '0'       ; convert ASCII to number
+
+cmp al, 0
+jl negative
+positive:
+mov ah, 9
+lea dx, msgPos
+int 21h
+jmp end_prog
+negative:
+mov ah, 9
+lea dx, msgNeg
+int 21h
+end_prog:
+mov ah, 4ch
+int 21h
+main endp
+end main
+
+
