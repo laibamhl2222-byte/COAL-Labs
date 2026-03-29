@@ -1,0 +1,46 @@
+.model small
+.stack 100h
+.data
+msgGreater db 'Greater$'
+msgSmaller db 'Smaller$'
+msgEqual db 'Equal$'
+.code
+main proc
+; first number
+mov ah, 1
+int 21h
+sub al, '0'
+mov bl, al
+
+; second number
+mov ah, 1
+int 21h
+sub al, '0'
+mov bh, al
+
+cmp bl, bh
+jg greater
+jl smaller
+je equal
+
+greater:
+mov ah, 9
+lea dx, msgGreater
+int 21h
+jmp end_prog
+smaller:
+mov ah, 9
+lea dx, msgSmaller
+int 21h
+jmp end_prog
+equal:
+mov ah, 9
+lea dx, msgEqual
+int 21h
+end_prog:
+mov ah, 4ch
+int 21h
+main endp
+end main
+
+
