@@ -1,0 +1,27 @@
+Task 3 - Print A..Z each on a new line
+.MODEL SMALL
+.STACK 100H
+.DATA
+    NEWLINE DB 0DH, 0AH, '$'   ; carriage return + line feed
+
+.CODE
+MAIN PROC
+    MOV CX, 26          ; 26 letters
+    MOV DL, 'A'         ; start from 'A'
+
+PRINT_LETTER:
+    MOV AH, 2           ; print letter
+    INT 21H
+
+    ; print newline
+    MOV AH, 9
+    LEA DX, NEWLINE
+    INT 21H
+
+    INC DL              ; next letter
+    LOOP PRINT_LETTER
+
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
