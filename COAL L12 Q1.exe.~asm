@@ -1,0 +1,43 @@
+.model small
+.stack 100h
+.data
+.code
+
+main proc
+mov bx, 1       ; row counter starts at 1
+mov cx, 4       ; total rows = 4
+
+L1: push cx
+mov si, 1       ; column counter starts at 1
+mov cx, bx      ; inner loop runs equal to row number
+
+L2: mov ax, si      ; AX = column number
+add al, 48      ; convert to ASCII
+mov dl, al
+mov ah, 2
+int 21h
+
+inc si          ; next column
+loop L2
+
+; new line
+mov dl, 10
+mov ah, 2
+int 21h
+mov dl, 13
+mov ah, 2
+int 21h
+
+inc bx          ; next row
+pop cx
+loop L1
+
+mov ah, 4Ch
+int 21h
+main endp
+end main
+
+
+
+
+; [SOURCE]: C:\Users\Laiba Sajjad\Downloads\COAL L12 Q1.asm
