@@ -1,7 +1,7 @@
 .model small
 .stack 100h
 .data
-str db 'HELLO$',0
+str db 'HELLO$',0   ; string ending with $
 
 .code
 main proc
@@ -15,54 +15,15 @@ count_loop:
     mov al, [si]         ; get character
     cmp al, '$'          ; end of string?
     je done_count
-    push ax              ; push character
-    inc cx               ; increment counter
-    inc si               ; move to next char
+    push ax              ; push character onto stack
+    inc cx               ; increase counter
+    inc si               ; move to next character
     jmp count_loop
 
 done_count:
-    ; CX now holds number of characters pushed
-    ; Print count (for demo)
-    mov ax, cx
-    call print_num
-
+    ; CX now has number of characters
+    ; For beginners, just stop here
     mov ah, 4Ch
     int 21h
 main endp
-
-;-----------------------------------
-; Procedure: print_num
-; Prints AX as decimal number
-;-----------------------------------
-print_num proc
-    push ax
-    push bx
-    push cx
-    push dx
-
-    mov bx, 10
-    xor cx, cx
-
-convert_loop:
-    xor dx, dx
-    div bx
-    push dx
-    inc cx
-    cmp ax, 0
-    jne convert_loop
-
-print_loop:
-    pop dx
-    add dl, '0'
-    mov ah, 2
-    int 21h
-    loop print_loop
-
-    pop dx
-    pop cx
-    pop bx
-    pop ax
-    ret
-print_num endp
-
 end main
