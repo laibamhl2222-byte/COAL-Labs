@@ -1,0 +1,59 @@
+.model small
+.stack 100h
+.data
+str db 'MADAM$',0
+pal_msg db 'Palindrome$',0
+not_msg db 'Not Palindrome$',0
+
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    mov si, offset str
+    mov cx, 0
+
+; Push all characters
+push_loop:
+    mov al, [si]
+    cmp al, '$'
+    je compare_loop
+    push ax
+    inc cx
+    inc si
+    jmp push_loop
+
+; Compare by popping
+compare_loop:
+    mov si, offset str
+    mov bx, cx
+
+check_loop:
+    cmp bx, 0
+    je palindrome
+
+    mov al, [si]   ; original char
+    pop dx         ; popped char
+    cmp al, dl
+    jne not_palindrome
+
+    inc si
+    dec bx
+    jmp check_loop
+
+palindrome:
+    lea dx, pal_msg
+    mov ah, 9
+    int 21h
+    jmp done
+
+not_palindrome:
+    lea dx, not_msg
+    mov ah, 9
+    int 21h
+
+done:
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
