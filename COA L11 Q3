@@ -1,0 +1,15 @@
+Stack: Works like a pile of books. Last pushed is first popped (LIFO).
+
+PUSH: Saves data onto stack.
+
+POP: Takes data back from stack.
+
+Counting characters: Each time you push, increment CX.
+
+Palindrome check:
+
+Push all characters → stack reverses order.
+
+Compare original string with popped stack values.
+
+If same → Palindrome, else Not Palindrome.
