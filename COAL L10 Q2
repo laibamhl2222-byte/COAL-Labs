@@ -1,0 +1,58 @@
+.model small
+.stack 100h
+.data
+arr db 5 dup(?)
+largest db ?
+msg db 'Enter 5 numbers:$'
+msg2 db 0Dh,0Ah,'Largest = $'
+
+.code
+main proc
+    mov ax, @data
+    mov ds, ax
+
+    ; Prompt
+    mov dx, offset msg
+    mov ah, 9
+    int 21h
+
+    ; Input
+    mov cx, 5
+    mov si, offset arr
+input_loop:
+    mov ah, 1
+    int 21h
+    sub al, '0'
+    mov [si], al
+    inc si
+    loop input_loop
+
+    ; Find largest
+    mov si, offset arr
+    mov al, [si]
+    mov largest, al
+    mov cx, 4
+    inc si
+find_loop:
+    mov al, [si]
+    cmp al, largest
+    jle skip
+    mov largest, al
+skip:
+    inc si
+    loop find_loop
+
+    ; Print result
+    mov dx, offset msg2
+    mov ah, 9
+    int 21h
+
+    mov dl, largest
+    add dl, '0'
+    mov ah, 2
+    int 21h
+
+    mov ah, 4Ch
+    int 21h
+main endp
+end main
