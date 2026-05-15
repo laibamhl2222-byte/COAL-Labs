@@ -36,8 +36,3 @@ mov ah, 4Ch
 int 21h
 main endp
 end main
-
-
-
-
-; [SOURCE]: C:\Users\Laiba Sajjad\Downloads\COAL L12 Q1.asm
